@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29d13a88-b8ee-40f3-93a8-e4f3acfe1c8f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/tests/models_tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/tests/views_tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/validators.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utilities/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utilities/jwt_auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BarberShop/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/BarberShop/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BarberShop/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/BarberShop/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="29d13a88-b8ee-40f3-93a8-e4f3acfe1c8f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -238,7 +222,7 @@
       <updated>1739814565912</updated>
       <workItem from="1739814566946" duration="20282000" />
       <workItem from="1739853164174" duration="1920000" />
-      <workItem from="1739880125677" duration="2807000" />
+      <workItem from="1739880125677" duration="3167000" />
     </task>
     <servers />
   </component>

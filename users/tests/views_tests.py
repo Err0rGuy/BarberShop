@@ -43,7 +43,7 @@ class LoginViewTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='John', phone_number='+989039257150', password='Correct123!')
 
-    def test_valid_data(self):
+    def test_incorrect_password(self):
         data = {'username': 'John', 'password': 'InCorrect123!'}
         response = self.client.post('/users/login/', data)
         self.assertEqual(response.status_code, 401)
