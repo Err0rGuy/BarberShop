@@ -5,7 +5,7 @@ from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseU
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
-
+from .validators import password_validator
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -42,11 +42,11 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(_('first name'), max_length=50, blank=True)
-    last_name = models.CharField(_('last name'), max_length=50, blank=True)
+    first_name = models.CharField(_('first name'), max_length=50, blank=True, null=True)
+    last_name = models.CharField(_('last name'), max_length=50, blank=True, null=True)
     username = models.CharField(_('username'), max_length=150, unique=True)
     phone_number = PhoneNumberField(_('phone number'), region='IR', unique=True, blank=True, null=True)
-    password = models.CharField(_('password'), max_length=128)
+    password = models.CharField(_('password'), max_length=128, validators=[password_validator, ])
     is_staff = models.BooleanField(_('staff status'), default=False)
     is_active = models.BooleanField(_('active'), default=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now())
