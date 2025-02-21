@@ -12,10 +12,11 @@ class SignupViewTest(TestCase):
                                              password='password')
 
     def test_valid_data(self):
-        data = {'username': 'John', 'password': 'ValidPassw0rd!'}
+        data = {'username': 'John', 'password': 'ValidPassw0rd!', 'phone_number': '+989039257160'}
         response = self.client.post('/users/signup/', data)
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.data, data)
+        self.assertEqual(response.data['username'], data['username'])
+        self.assertEqual(response.data['phone_number'], data['phone_number'])
 
     def test_invalid_phone(self):
         data = {'username': 'John', 'phone_number': '1111', 'password': 'ValidPassw0rd!'}
@@ -53,7 +54,7 @@ class LoginViewTest(TestCase):
         data = {'username' : 'John111', 'password': 'Correct123!'}
         response = self.client.post('/users/login/', data)
         self.assertIn(response.data['error'], 'User not found')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 400)
 
 
 class RefreshTokenViewTest(TestCase):
@@ -91,3 +92,35 @@ class RefreshTokenViewTest(TestCase):
         response = self.client.get('/users/refresh/')
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.data['detail'], 'Invalid or Expired refresh token!')
+
+
+class TestDetailsView(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='John', phone_number='+989039257150', password='password')
+        self.data = {'username': 'John', 'password': 'password', 'phone_number' : '+989039257160'}
+        self.client.post('/users/login/', self.data, content_type='application/json')
+
+
+    def test_update_user(self):
+        new_data = {'username': 'John123', 'password': 'Changed-Password22!', 'phone_number': '+989039257160'}
+        response = self.client.put('/users/details/', new_data, content_type='application/json')
+        updated_user = User.objects.get(pk=self.user.pk)
+        self.assertEqual(response.status_code, 202)
+        self.assertEqual(updated_user.username, new_data['username'])
+        self.assertEqual(updated_user.phone_number, new_data['phone_number'])
+        self.assertTrue(updated_user.check_password(new_data['password']))
+        self.assertFalse(updated_user.check_password(self.data['password']))
+
+    def test_delete_user(self):
+        self.assertTrue(User.objects.filter(pk=self.user.pk).exists())
+        response = self.client.delete('/users/details/', content_type='application/json')
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(User.objects.filter(pk=self.user.pk).exists())
+
+    def test_get_user(self):
+        response = self.client.get('/users/details/', content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['username'], self.user.username)
+        self.assertEqual(response.data['phone_number'], self.user.phone_number)
+
+

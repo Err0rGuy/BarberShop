@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 from .validators import password_validator
 
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -34,7 +35,8 @@ class UserManager(BaseUserManager):
                                  **extra_fields)
 
     def create_superuser(self, username, phone_number, password, **extra_fields):
-        return self._create_user(username=username, phone_number=phone_number, password=password, is_superuser=True, is_staff=True
+        return self._create_user(username=username, phone_number=phone_number, password=password, is_superuser=True,
+                                 is_staff=True
                                  , **extra_fields)
 
     def get_by_phone_number(self, phone_number):
@@ -50,16 +52,128 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(_('staff status'), default=False)
     is_active = models.BooleanField(_('active'), default=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now())
+    has_barber_profile = models.BooleanField(_('has barber profile'), default=False)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['phone_number']
     objects = UserManager()
 
+    def check_profile_exists(self):
+        if BarberProfile.objects.filter(user_id=self.pk).exists():
+            self.has_barber_profile = True
+
     def __str__(self):
-        return self.username
+        return f"username: {self.username}"
 
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
         ordering = ['id']
         db_table = 'users'
+
+
+class BarberProfile(models.Model):
+    user = models.OneToOneField('User', on_delete=models.CASCADE, null=True, related_name='profile')
+    personal_image = models.ImageField(_('personal image'), null=True, blank=True)
+    certification_image = models.ImageField(_('certification image'), null=True)
+    location = models.JSONField(_('location'), null=True)
+
+    def set_location(self, state, city, address):
+        self.location = Location(state, city, address).to_dict()
+
+    def get_location(self) -> 'Location':
+        return Location.from_dict(self.location)
+
+    def __str__(self):
+        return f"barber: {self.user.username}"
+
+    class Meta:
+        verbose_name = _('Barber Profile')
+        verbose_name_plural = _('barbers profiles')
+        ordering = ['id']
+        db_table = 'barbers_profiles'
+
+
+class DaySchedule(models.Model):
+    DAY_CHOICES = (
+        ('Sunday', 'Sunday'),
+        ('Saturday', 'Saturday'),
+        ('Monday', 'Monday'),
+        ('Tuesday', 'Tuesday'),
+        ('Wednesday', 'Wednesday'),
+        ('Thursday', 'Thursday'),
+        ('Friday', 'Friday'),
+    )
+    day = models.CharField(_('day'), choices=DAY_CHOICES, null=True)
+    start_time = models.TimeField(_('start time'), null=True)
+    end_time = models.TimeField(_('end time'), null=True)
+    is_available = models.BooleanField(_('available'), default=True)
+    barber = models.ForeignKey(BarberProfile, on_delete=models.CASCADE, null=True, related_name='days_schedules')
+
+    def __str__(self):
+        return f"day: {self.day}\tstart: {self.start_time}\tend: {self.end_time}"
+
+    class Meta:
+        verbose_name = _('Day Schedule')
+        verbose_name_plural = _('days schedule')
+        ordering = ['id']
+        db_table = 'days_schedules'
+
+
+class OffDays(models.Model):
+    barber = models.ForeignKey(BarberProfile, on_delete=models.CASCADE, null=True, related_name='off_days')
+    date = models.DateField(_('date'), null=True)
+
+    def __str__(self):
+        return f"barber: {self.barber.user.username}\tdate: {self.date}"
+
+    class Meta:
+        verbose_name = _('Off Day')
+        verbose_name_plural = _('Off Days')
+        ordering = ['id']
+        db_table = 'off_days'
+
+
+class Appointment(models.Model):
+    barber = models.ForeignKey(BarberProfile, on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+    appointment_date = models.DateTimeField(_('appointment date'), null=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE, null=True, related_name='appointments')
+
+    def __str__(self):
+        return f"user: {self.user.username}\tdate: {self.appointment_date}"
+
+    class Meta:
+        verbose_name = _('Appointment')
+        verbose_name_plural = _('appointments')
+        ordering = ['id']
+        db_table = 'appointments'
+
+
+class Location:
+    def __init__(self, state, city, address):
+        self.state = state
+        self.city = city
+        self.address = address
+
+    @property
+    def get_state(self):
+        return self.state
+
+    @property
+    def get_city(self):
+        return self.city
+
+    @property
+    def get_address(self):
+        return self.address
+
+    def to_dict(self):
+        return {'state': self.state, 'city': self.city, 'address': self.address}
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(data['state'], data['city'], data['address'])
+
+    def __str__(self):
+        return f'{self.state} {self.city} {self.address}'

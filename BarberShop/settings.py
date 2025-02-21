@@ -115,8 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=1),
-    'REFRESH_TOKEN_LIFETIME' : timedelta(minutes=2),
+    'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=30),  # Actual : 30 min
+    'REFRESH_TOKEN_LIFETIME' : timedelta(minutes=2), # Actual : 7 days
     'ROTATE_REFRESH_TOKENS' : True,
     'BLACKLIST_AFTER_ROTATION' : True,
     'ALGORITHM' : 'HS256',
