@@ -15,7 +15,7 @@ import environ
 import os
 
 env = environ.Env(DEBUG=(bool, False))
-
+ # Reading secret values from .env file
 environ.Env.read_env(env_file='.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
+# DRF configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# JWT configuration
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=30),  # Actual : 30 min
     'REFRESH_TOKEN_LIFETIME' : timedelta(minutes=2), # Actual : 7 days
@@ -142,6 +142,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
+
+#Media Files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 

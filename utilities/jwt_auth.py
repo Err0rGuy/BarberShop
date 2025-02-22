@@ -43,13 +43,13 @@ def set_tokens_in_cookie(user):
     return response
 
 
-# Middleware for access token checking
+# Middleware for checking access tokens
 class JWTAuthMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         self.ALLOWED_URLS = [
             '/users/login/',
-            '/users/signup/',
+            '/users/signup/',  # URLs without checking
             '/users/refresh/',
         ]
 
@@ -57,9 +57,6 @@ class JWTAuthMiddleware:
         access_token = request.COOKIES.get('access')
         if request.path in self.ALLOWED_URLS:
             return self.get_response(request)
-        # if request.path == '/users/refresh/':
-        #     request.META['HTTP_AUTHORIZATION'] = f'Bearer {access_token}'
-        #     return self.get_response(request)
         if access_token:
             request.META['HTTP_AUTHORIZATION'] = f'Bearer {access_token}'
         return self.get_response(request)

@@ -58,10 +58,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['phone_number']
     objects = UserManager()
 
-    def check_profile_exists(self):
-        if BarberProfile.objects.filter(user_id=self.pk).exists():
-            self.has_barber_profile = True
-
     def __str__(self):
         return f"username: {self.username}"
 
@@ -71,11 +67,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         ordering = ['id']
         db_table = 'users'
 
-
+# Identifying barbers by this profile
 class BarberProfile(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE, null=True, related_name='profile')
-    personal_image = models.ImageField(_('personal image'), null=True, blank=True)
-    certification_image = models.ImageField(_('certification image'), null=True)
+    personal_image = models.ImageField(_('personal image'), null=True, blank=True, upload_to='personals/')
+    certification_image = models.ImageField(_('certification image'), null=True, upload_to='certifications/')
     location = models.JSONField(_('location'), null=True)
 
     def set_location(self, state, city, address):
@@ -93,7 +89,7 @@ class BarberProfile(models.Model):
         ordering = ['id']
         db_table = 'barbers_profiles'
 
-
+# Setting start and end worktime for week days for barber
 class DaySchedule(models.Model):
     DAY_CHOICES = (
         ('Sunday', 'Sunday'),
@@ -119,7 +115,7 @@ class DaySchedule(models.Model):
         ordering = ['id']
         db_table = 'days_schedules'
 
-
+# Setting work off days for barber
 class OffDays(models.Model):
     barber = models.ForeignKey(BarberProfile, on_delete=models.CASCADE, null=True, related_name='off_days')
     date = models.DateField(_('date'), null=True)
@@ -133,7 +129,7 @@ class OffDays(models.Model):
         ordering = ['id']
         db_table = 'off_days'
 
-
+# Setting appointment date and time by user
 class Appointment(models.Model):
     barber = models.ForeignKey(BarberProfile, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
@@ -149,7 +145,7 @@ class Appointment(models.Model):
         ordering = ['id']
         db_table = 'appointments'
 
-
+# Barber Location
 class Location:
     def __init__(self, state, city, address):
         self.state = state

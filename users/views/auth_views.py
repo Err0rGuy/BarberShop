@@ -57,7 +57,7 @@ class LogoutView(APIView):
         return response
 
 
-# Test
+# Just for Testing tokens in development fuzz
 class TestView(APIView):
     permission_classes = [IsAuthenticated]
 

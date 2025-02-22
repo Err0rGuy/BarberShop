@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from users.models import BarberProfile
 from users.serializers import BarberProfileSerializer
 
-
+# Create, modify, delete, or get Barber profile
 class ProfilesView(APIView):
     permission_classes = [IsAuthenticated]
 
