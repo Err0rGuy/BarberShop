@@ -2,34 +2,38 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from import_export.admin import ImportExportModelAdmin
-from users.models import User, BarberProfile, Appointment, DaySchedule, OffDays
+
+from users.models import *
 
 
-class ProfileInline(admin.TabularInline):
-    model = BarberProfile
+class OffTimesInline(admin.TabularInline):
+    model = OffTime
     extra = 0
 
-class OffDaysInline(admin.TabularInline):
-    model = OffDays
+
+class WorkDaysInline(admin.TabularInline):
+    model = WorkDay
     extra = 0
 
-class DayScheduleInline(admin.TabularInline):
-    model = DaySchedule
+
+class UnAvailabilityInline(admin.TabularInline):
+    model = UnAvailability
     extra = 0
 
-class AppointmentInline(admin.TabularInline):
-    model = Appointment
+
+class ImagesInline(admin.TabularInline):
+    model = Image
     extra = 0
+
 
 @admin.register(User)
 class UserAdmin(ImportExportModelAdmin, UserAdmin):
     fieldsets = (
-        (None, {'fields': ('username', 'password', 'has_barber_profile')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'phone_number')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'phone_number', 'location', 'avatar')}),
+        (_('Permissions'), {'fields': ('is_superuser', 'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login',)}),
     )
-    inlines = (AppointmentInline, )
+    inlines = []
 
     add_fieldsets = (
         (None, {
@@ -38,26 +42,26 @@ class UserAdmin(ImportExportModelAdmin, UserAdmin):
         }),
     )
 
-    list_display = ('username', 'phone_number', 'is_staff')
-    search_fields = ('username',)
+    list_display = ('first_name', 'last_name', 'phone_number', 'is_superuser', 'date_joined')
+    search_fields = ('phone_number', 'first_name', 'last_name')
+    list_filter = ('is_superuser',)
     ordering = ('id',)
 
 
-@admin.register(BarberProfile)
+@admin.register(Barber)
 class BarberAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'location')
-    inlines = (DayScheduleInline, OffDaysInline)
-
-@admin.register(Appointment)
-class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'appointment_date')
+    list_display = ('user_id', 'is_available')
+    inlines = (WorkDaysInline, UnAvailabilityInline, ImagesInline)
 
 
-@admin.register(DaySchedule)
-class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('day', 'start_time', 'end_time', 'is_available', 'barber_id')
+@admin.register(Reservation)
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('user_id', 'barber_id', 'date', 'accept_status')
+    search_fields = ('date',)
 
 
-@admin.register(OffDays)
-class OffDaysAdmin(admin.ModelAdmin):
-    list_display = ('barber', 'date')
+@admin.register(WorkDay)
+class WorkDaysAdmin(admin.ModelAdmin):
+    list_display = ('day', 'start_time', 'end_time', 'barber_id')
+    inlines = (OffTimesInline,)
+    list_filter = ('day',)
