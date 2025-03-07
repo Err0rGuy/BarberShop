@@ -1,7 +1,7 @@
 import re
 from rest_framework.exceptions import ValidationError
 
-# Users passwords strength checker
+# Users passwords strength validator
 def password_validator(value):
     if len(value) < 8:
         raise ValidationError('Password must contain at least 8 character.')

@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'import_export',
+    'celery',
+    'redis',
     'users',
-
+    'barbers',
 ]
 
 MIDDLEWARE = [
+    'django_ratelimit.middleware.RatelimitMiddleware',
     'utilities.jwt_auth.JWTAuthMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,11 +57,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Rate Limit
+RATELIMIT_VIEW = 'users.views.custom_ratelimit_view'
+
+
 # DRF configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        #'rest_framework.authentication.SessionAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES' : ['rest_framework.permissions.IsAuthenticated'],
 }
@@ -116,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # JWT configuration
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=30),  # Actual : 30 min
-    'REFRESH_TOKEN_LIFETIME' : timedelta(days=7), # Actual : 7 days
+    'REFRESH_TOKEN_LIFETIME' : timedelta(minutes=2), # Actual : 7 days
     'ROTATE_REFRESH_TOKENS' : True,
     'BLACKLIST_AFTER_ROTATION' : True,
     'ALGORITHM' : 'HS256',
@@ -126,6 +132,15 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM' : 'user_id',
     'JWT_AUTH_COOKIE' : 'jwt_auth_cookie',
 }
+
+# Celery
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TIMEZONE = 'Asia/Tehran'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_IMPORTS = ('users.schedules', )
+
 
 
 # Internationalization

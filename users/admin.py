@@ -6,26 +6,6 @@ from import_export.admin import ImportExportModelAdmin
 from users.models import *
 
 
-class OffTimesInline(admin.TabularInline):
-    model = OffTime
-    extra = 0
-
-
-class WorkDaysInline(admin.TabularInline):
-    model = WorkDay
-    extra = 0
-
-
-class UnAvailabilityInline(admin.TabularInline):
-    model = UnAvailability
-    extra = 0
-
-
-class ImagesInline(admin.TabularInline):
-    model = Image
-    extra = 0
-
-
 @admin.register(User)
 class UserAdmin(ImportExportModelAdmin, UserAdmin):
     fieldsets = (
@@ -48,20 +28,10 @@ class UserAdmin(ImportExportModelAdmin, UserAdmin):
     ordering = ('id',)
 
 
-@admin.register(Barber)
-class BarberAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'is_available')
-    inlines = (WorkDaysInline, UnAvailabilityInline, ImagesInline)
 
 
-@admin.register(Reservation)
-class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'barber_id', 'date', 'accept_status')
-    search_fields = ('date',)
-
-
-@admin.register(WorkDay)
-class WorkDaysAdmin(admin.ModelAdmin):
-    list_display = ('day', 'start_time', 'end_time', 'barber_id')
-    inlines = (OffTimesInline,)
-    list_filter = ('day',)
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('province', 'city', 'zone')
+    search_fields = ('province', 'city', 'zone')
+    list_filter = ('province', 'city', 'zone')

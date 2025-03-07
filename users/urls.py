@@ -1,12 +1,17 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import *
 
-from users.views import auth_views
 
+router = DefaultRouter()
+router.register('reservations', ReservationViewSet, basename='reservations') # Reservations ViewSet
 urlpatterns = [
-    path('signup/', auth_views.SignupView.as_view(), name='signup'),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('test/', auth_views.TestView.as_view(), name='test'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('details/', auth_views.UserDetails.as_view(), name='details'),
-
+    path('signup/', signup_view, name='signup'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('details/', UserDetailView.as_view(), name='details'),
+    path('token-refresh/', refresh, name='token_refresh'),
+    path('location/', location_view, name='location'),
+    path('filter-barbers/', filter_closest_barbers_view, name='filter-barbers'),
+    path('', include(router.urls)),
 ]
