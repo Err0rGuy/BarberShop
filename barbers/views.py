@@ -116,7 +116,6 @@ class ReservationListView(ListAPIView):
         return Reservation.objects.filter(barber_id=get_barber(self.request).pk)
 
 
-
 """
 The barber can retrieve a reservation or change the reservation status.
 """

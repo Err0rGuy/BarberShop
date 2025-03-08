@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.contrib.auth import login, logout
 from django.http import JsonResponse
 from django_ratelimit.decorators import ratelimit
@@ -5,6 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet
@@ -163,3 +165,41 @@ Custom Error to show to User after rate limit.
 """
 def custom_ratelimit_view(request, exception=None):
     return JsonResponse({'Error' : 'Too many requests. you have to wait for a while.'}, status=status.HTTP_429_TOO_MANY_REQUESTS)
+
+
+"""
+This view filters barbers by location in query parameters,
+if location is not given, it will filter by default to barbers near the user.
+< for example, http:127.0.0.1:8000/users/filter-barbers/?province=KHR, 
+            this will filter all barbers in khorasan razavi.
+or http:127.0.0.1:8000/users/filter-barbers/?city=mashhad,zone=6,
+        this will filter all barbers in the sixth zone of mashhad. >
+"""
+class BarbersFilterView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        province = request.GET.get('province')
+        city = request.GET.get('city')
+        zone = request.GET.get('zone')
+        filters = Q()
+
+        location = Location.objects.filter(user_id=request.user.pk).first()
+
+        if not province and not city and not zone:
+            filters &= Q(location=location)
+        if province:
+            filters &= Q(location__province=province)
+        if city:
+            filters &= Q(location__city=city)
+        if zone:
+            filters &= Q(location__zone=zone)
+
+        barbers = User.objects.filter(filters).filter(barber__isnull=False)
+        serializer = UserSerializer(barbers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+

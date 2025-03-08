@@ -12,5 +12,6 @@ urlpatterns = [
     path('details/', UserDetailView.as_view(), name='details'),
     path('token-refresh/', refresh, name='token_refresh'),
     path('location/', location_view, name='location'),
+    path('filter-barbers/', BarbersFilterView.as_view(), name='filter-barbers'),
     path('', include(router.urls)),
 ]
