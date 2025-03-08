@@ -4,56 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29d13a88-b8ee-40f3-93a8-e4f3acfe1c8f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/barbers/validators.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/mixins.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BarberShop/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/BarberShop/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BarberShop/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/BarberShop/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BarberShop/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/BarberShop/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0002_alter_user_date_joined.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0003_alter_user_date_joined_alter_user_first_name_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0004_alter_user_date_joined_alter_user_password.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0005_alter_user_date_joined_alter_user_first_name_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0006_alter_user_date_joined.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0007_barberprofile_dayschedule_alter_user_date_joined_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0008_remove_appointment_reservation_time_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0009_user_has_barber_profile_alter_user_date_joined.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0010_alter_dayschedule_options_alter_offdays_options_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0011_remove_barberprofile_schedule_alter_user_date_joined_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0012_alter_dayschedule_day_alter_user_date_joined.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0013_alter_dayschedule_day_alter_user_date_joined.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0014_remove_barberprofile_schedule_dayschedule_barber_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0015_alter_appointment_appointment_date_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0016_alter_appointment_user_alter_dayschedule_barber_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0017_alter_barberprofile_user_alter_user_date_joined.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0018_alter_barberprofile_certification_image_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0019_location_remove_barberprofile_user_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0020_alter_location_options_alter_reservation_options_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0021_alter_reservation_accept_status.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0022_rename_offtimes_offtime.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0023_user_is_active_user_is_staff.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0024_alter_reservation_date_alter_unavailability_end_date_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0025_alter_reservation_accept_status.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0026_image.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/migrations/0027_barber_max_reservation_days_barber_reservation_gap_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/BarberShop/celery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/tests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/barbers/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/tests/views_tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/validators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/barbers/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views/auth_views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views/barber_views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilities/jwt_auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities/jwt_auth.py" afterDir="false" />
-    </list>
+    <list default="true" id="29d13a88-b8ee-40f3-93a8-e4f3acfe1c8f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -295,7 +246,7 @@
       <workItem from="1741099535277" duration="15328000" />
       <workItem from="1741198368015" duration="9007000" />
       <workItem from="1741253413609" duration="41841000" />
-      <workItem from="1741336986218" duration="20789000" />
+      <workItem from="1741336986218" duration="21498000" />
     </task>
     <servers />
   </component>
