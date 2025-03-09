@@ -142,7 +142,7 @@ class Reservation(models.Model):
     def clean(self):
         if self.date < now():
             raise ValidationError(_('The reservation time cannot be later than the present'))
-        if is_in_working_hours(self.date, self.barber):
+        if not is_in_working_hours(self.date, self.barber):
             raise ValidationError(_('Reservation time is not during working hours'))
         if has_unavailability_overlap(self.date, self.barber):
             raise ValidationError(_('date overlaps with barber unavailability!'))
