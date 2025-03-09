@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
 from users.models import User
 from .validators import has_unavailability_overlap, is_in_off_time, invalid_max_reservation_days, \
-    invalid_reservation_gap
+    invalid_reservation_gap, is_in_working_hours
 
 
 class Barber(models.Model):
@@ -142,6 +142,8 @@ class Reservation(models.Model):
     def clean(self):
         if self.date < now():
             raise ValidationError(_('The reservation time cannot be later than the present'))
+        if is_in_working_hours(self.date, self.barber):
+            raise ValidationError(_('Reservation time is not during working hours'))
         if has_unavailability_overlap(self.date, self.barber):
             raise ValidationError(_('date overlaps with barber unavailability!'))
         if is_in_off_time(self.date, self.barber):

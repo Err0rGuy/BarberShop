@@ -57,3 +57,20 @@ def invalid_reservation_gap(reserve_date, barber):
         Q(date__gte=reserve_date - gap) & Q(date__lte=reserve_date) | Q(date__lte=reserve_date + gap) & Q(
             date__gte=reserve_date)).exists()
     return overlapping_reservations
+
+
+
+"""
+Check if reservation time is in working hours in day.
+"""
+def is_in_working_hours(reserve_date, barber):
+    from .models import WorkDay
+    weekday = reserve_date.strftime('%A')
+    workday = WorkDay.objects.filter(day=weekday, barber=barber).first()
+    if not workday:
+        return False
+    reserve_date_hour = reserve_date.time()
+
+    return WorkDay.objects.filter(workday=workday).filter(
+        Q(start_time__lte=reserve_date_hour) & Q(end_time__gt=reserve_date_hour)).exists()
+
