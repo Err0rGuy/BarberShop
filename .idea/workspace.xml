@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29d13a88-b8ee-40f3-93a8-e4f3acfe1c8f" name="Changes" comment="" />
+    <list default="true" id="29d13a88-b8ee-40f3-93a8-e4f3acfe1c8f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/barbers/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/barbers/validators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -206,15 +210,6 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Django tests.Test: users.tests.views_tests.SignupViewTest.test_valid_data" />
-        <item itemvalue="Django tests.Test: users.tests.views_tests.LoginViewTest" />
-        <item itemvalue="Django tests.Test: users.tests.views_tests.TestDetailsView.test_get_user" />
-        <item itemvalue="Django tests.Test: users.tests.views_tests.TestDetailsView.test_delete_user" />
-        <item itemvalue="Django tests.Test: users.tests.views_tests.TestDetailsView.test_update_user" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -250,6 +245,10 @@
       <workItem from="1741422063531" duration="123000" />
       <workItem from="1741439827055" duration="1785000" />
       <workItem from="1741546998265" duration="686000" />
+      <workItem from="1741550284485" duration="76000" />
+      <workItem from="1741631530133" duration="2000" />
+      <workItem from="1741631552627" duration="5473000" />
+      <workItem from="1741641790969" duration="3268000" />
     </task>
     <servers />
   </component>

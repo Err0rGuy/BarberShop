@@ -71,6 +71,5 @@ def is_in_working_hours(reserve_date, barber):
         return False
     reserve_date_hour = reserve_date.time()
 
-    return WorkDay.objects.filter(workday=workday).filter(
-        Q(start_time__lte=reserve_date_hour) & Q(end_time__gt=reserve_date_hour)).exists()
+    return workday.start_time <= reserve_date_hour < workday.end_time
 
