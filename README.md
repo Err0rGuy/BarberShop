@@ -4,7 +4,7 @@ A RESTful backend for an online salon booking system built with **Django** and *
 
 The platform allows customers to book appointments and salon staff (stylists) to manage their schedule and services.
 
-## 🧰 Tech Stack
+## Tech Stack
 
 - ⚙️ **Framework:** Django
 - 🌐 **API:** Django REST Framework
