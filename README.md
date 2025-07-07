@@ -1,4 +1,4 @@
-# 💇‍♀️ Barber shop API (Django REST)
+# ✂️ Barber shop API (Django REST)
 
 A RESTful backend for an online salon booking system built with **Django** and **Django REST Framework**.
 
@@ -11,7 +11,7 @@ The platform allows customers to book appointments and salon staff (stylists) to
 - 🔐 **Auth:** Token-based / JWT
 - 🗃️ **Database:** PostgreSQL
 
-## 🧑‍💼 Roles
+## Roles
 
 - **Client:** can view salons, browse available times, and make reservations
 - **Barber / Admin:** can manage bookings, availability, and services
